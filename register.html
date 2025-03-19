@@ -10,30 +10,30 @@
 <body>
    <div class="wrapper">
       <div class="title">Sign Up</div>
-      <form action="index.html" method="POST">
-
+      <form id="signup-form" method="POST" novalidate>
+         
          <!-- Username Field -->
          <div class="field">
-            <input type="text" id="username" name="username" autocomplete="username" required>
-            <label>Username</label>
+            <input type="text" id="username" name="username" autocomplete="username" required aria-label="Username">
+            <label for="username">Username</label>
          </div>
 
          <!-- Email Field -->
          <div class="field">
-            <input type="email" id="email" name="email" autocomplete="email" required>
-            <label>Email Address</label>
+            <input type="email" id="email" name="email" autocomplete="email" required aria-label="Email Address">
+            <label for="email">Email Address</label>
          </div>
 
          <!-- Password Field -->
          <div class="field">
-            <input type="password" id="password" name="password" autocomplete="new-password" required>
-            <label>Password</label>
+            <input type="password" id="password" name="password" autocomplete="new-password" required aria-label="Password">
+            <label for="password">Password</label>
          </div>
 
          <!-- Confirm Password Field -->
          <div class="field">
-            <input type="password" id="cpassword" name="cpassword" autocomplete="new-password" required>
-            <label>Confirm Password</label>
+            <input type="password" id="cpassword" name="cpassword" autocomplete="new-password" required aria-label="Confirm Password">
+            <label for="cpassword">Confirm Password</label>
          </div>
 
          <!-- Submit Button -->

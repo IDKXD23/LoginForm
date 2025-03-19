@@ -45,7 +45,7 @@ submitButton.addEventListener("click", function (event) {
     .catch((error) => {
       // Handle errors
       const errorCode = error.code;
-      const errorMessage = error.message;
+     
 
       // Provide specific error alerts
       switch (errorCode) {

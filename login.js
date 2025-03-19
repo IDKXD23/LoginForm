@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyB8zUSflhSfV-o312NmGzMIPIVhOiWMPNQ",
   authDomain: "dolera-17463.firebaseapp.com",
   projectId: "dolera-17463",
-  storageBucket: "dolera-17463.appspot.com",
+  storageBucket: "dolera-17463.appspot.com", // Corrected storageBucket URL format
   messagingSenderId: "535352398372",
   appId: "1:535352398372:web:fd87c0ea46b73099607eb1",
   measurementId: "G-BRLNYJQXRY"
@@ -27,37 +27,41 @@ submitButton.addEventListener("click", function (event) {
   const email = document.getElementById('email').value.trim(); // Remove extra spaces
   const password = document.getElementById('password').value;
 
-  // Validate input fields
+
+  // Validate if all fields are filled
   if (!email || !password) {
-    alert("Please fill in both email and password!");
-    return; // Stop execution if inputs are empty
+    alert("Please fill in all the required fields!");
+    return; // Stop further execution
   }
 
-  // Sign in the user with email and password
- signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Successfully signed in
-    const user = userCredential.user;
-    alert("Login successful!");
-    window.location.href = "main.html"; // Redirect to the main page
-  })
-  .catch((error) => {
-    const errorCode = error.code;
+  // Check if passwords match
 
-    // Handle authentication errors
-    switch (errorCode) {
-      case 'auth/user-not-found':
-        alert("No user found with this email. Please sign up first.");
-        break;
-      case 'auth/wrong-password':
-        alert("Incorrect password. Please try again.");
-        break;
-      case 'auth/invalid-email':
-        alert("Invalid email format. Please provide a valid email address.");
-        break;
-      default:
-        alert("Error: " + error.message); // Handle unexpected errors
-    }
-  });
 
+  // Create a new user with email and password
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Successfully created a new user
+      const user = userCredential.user;
+          alert("Login successful!");
+      window.location.href = "main.html"; // Redirect to main.html
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message; // Declare errorMessage
+
+      // Provide specific error alerts
+      switch (errorCode) {
+        case 'auth/weak-password':
+          alert("Password is too weak. Please use a stronger password.");
+          break;
+        case 'auth/email-already-in-use':
+          alert("This email is already associated with an account.");
+          break;
+        case 'auth/invalid-email':
+          alert("Invalid email format. Please provide a valid email address.");
+          break;
+        default:
+          alert("Error: " + errorMessage); // Use errorMessage here
+      }
+    });
 });

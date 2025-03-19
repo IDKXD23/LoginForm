@@ -1,41 +1,49 @@
 <!DOCTYPE html>
-
-<html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Login Form Design | CodeLab</title>
-      <link rel="stylesheet" href="style.css">
-   </head>
-   <body>
-      <div class="wrapper">
-         <div class="title">
-            Login
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login Form Design | CodeLab</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="wrapper">
+      <div class="title">Login</div>
+      <form id="login-form" method="POST" action="#">
+         
+         <!-- Email Address Field -->
+         <div class="field">
+            <input type="email" id="email" name="email" required aria-label="Email Address" autocomplete="email">
+            <label for="email">Email Address</label>
          </div>
-         <form action="#">
-            <div class="field">
-               <input type="text" required>
-               <label>Email Address</label>
+
+         <!-- Password Field -->
+         <div class="field">
+            <input type="password" id="password" name="password" required aria-label="Password" autocomplete="current-password">
+            <label for="password">Password</label>
+         </div>
+
+         <!-- Remember Me and Forgot Password Links -->
+         <div class="content">
+            <div class="checkbox">
+               <input type="checkbox" id="remember-me" name="remember-me">
+               <label for="remember-me">Remember me</label>
             </div>
-            <div class="field">
-               <input type="password" required>
-               <label>Password</label>
+            <div class="pass-link">
+               <a href="#" aria-label="Forgot Password">Forgot password?</a>
             </div>
-            <div class="content">
-               <div class="checkbox">
-                  <input type="checkbox" id="remember-me">
-                  <label for="remember-me">Remember me</label>
-               </div>
-               <div class="pass-link">
-                  <a href="#">Forgot password?</a>
-               </div>
-            </div>
-            <div class="field">
-               <input type="submit" value="Login">
-            </div>
-            <div class="signup-link">
-               Not a member? <a href="register.html">Signup now</a>
-            </div>
-         </form>
-      </div>
-   </body>
+         </div>
+
+         <!-- Submit Button -->
+         <div class="field">
+            <input type="submit" value="Login" id="submit">
+         </div>
+
+         <!-- Signup Redirect Link -->
+         <div class="signup-link">
+            Not a member? <a href="register.html" aria-label="Signup now">Signup now</a>
+         </div>
+      </form>
+   </div>
+</body>
 </html>

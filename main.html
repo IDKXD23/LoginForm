@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Fullscreen YouTube Video</title>
+   <title>Fullscreen Video</title>
    <style>
       body, html {
          margin: 0;
@@ -11,23 +11,21 @@
          height: 100%;
          overflow: hidden;
       }
-      iframe {
+      video {
          position: absolute;
          top: 0;
          left: 0;
          width: 100%;
          height: 100%;
-         border: none;
+         object-fit: cover; /* Ensures the video covers the entire screen */
       }
    </style>
 </head>
 <body>
-   <!-- Fullscreen YouTube Video -->
-   <iframe 
-      src="https://www.youtube.com/embed/C43p8h99Cs0?autoplay=1&loop=1&playlist=C43p8h99Cs0" 
-      allow="autoplay" 
-      allowfullscreen 
-      title="YouTube video player">
-   </iframe>
+   <!-- Fullscreen Video -->
+   <video autoplay loop muted>
+      <source src="oo ee a e a Cat Green Screen.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+   </video>
 </body>
 </html>

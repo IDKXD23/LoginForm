@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Add event listener to the submit button
-const submitButton = document.getElementById('submit1');
+const submitButton = document.getElementById('submit');
 submitButton.addEventListener("click", function (event) {
   event.preventDefault(); // Prevent form submission
 

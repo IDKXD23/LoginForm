@@ -58,7 +58,7 @@ submitButton.addEventListener("click", function (event) {
           alert("Password is too weak. Please use a stronger password.");
           break;
         case 'auth/email-already-in-use':
-          alert("This email is already associated with an account.");
+          alert("This email is already created.");
           break;
         case 'auth/invalid-email':
           alert("Invalid email format. Please provide a valid email address.");

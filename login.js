@@ -39,29 +39,30 @@ submitButton.addEventListener("click", function (event) {
 
   // Create a new user with email and password
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Successfully created a new user
-      const user = userCredential.user;
-          alert("Login successful!");
-      window.location.href = "main.html"; // Redirect to main.html
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message; // Declare errorMessage
+  .then((userCredential) => {
+    // Successfully signed in
+    const user = userCredential.user;
+    alert("Login successful!");
+    window.location.href = "main.html"; // Redirect to main.html
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
 
-      // Provide specific error alerts
-      switch (errorCode) {
-        case 'auth/weak-password':
-          alert("Password is too weak. Please use a stronger password.");
-          break;
-        case 'auth/email-already-in-use':
-          alert("This email is already associated with an account.");
-          break;
-        case 'auth/invalid-email':
-          alert("Invalid email format. Please provide a valid email address.");
-          break;
-        default:
-          alert("Error: " + errorMessage); // Use errorMessage here
-      }
-    });
+    // Handle authentication errors
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        alert("No user found with this email. Please sign up first.");
+        break;
+      case 'auth/wrong-password':
+        alert("Incorrect password. Please try again.");
+        break;
+      case 'auth/invalid-email':
+        alert("Invalid email format. Please provide a valid email address.");
+        break;
+      default:
+        alert("Error: " + errorMessage); // Catch and display unexpected errors
+    }
+  });
+
 });

@@ -42,27 +42,21 @@ html,body{
   margin-top: 20px;
   position: relative;
 }
-/* Email Field Wrapper CSS */
-.wrapper form .field input {
+.wrapper form .field input{
   height: 100%;
   width: 100%;
   outline: none;
   font-size: 17px;
-  padding: 10px 20px; /* Increased padding for better usability */
+  padding-left: 20px;
   border: 1px solid lightgrey;
   border-radius: 25px;
   transition: all 0.3s ease;
-  background: #f9f9f9; /* Add subtle background color for better contrast */
 }
-
 .wrapper form .field input:focus,
-.wrapper form .field input:valid {
-  border-color: #4158d0; /* Highlighted border on focus */
-  background: #fff; /* Ensure background stays white on focus */
-  box-shadow: 0px 0px 5px rgba(65, 88, 208, 0.5); /* Add glow effect */
+form .field input:valid{
+  border-color: #4158d0;
 }
-
-.wrapper form .field label {
+.wrapper form .field label{
   position: absolute;
   top: 50%;
   left: 20px;
@@ -72,17 +66,15 @@ html,body{
   pointer-events: none;
   transform: translateY(-50%);
   transition: all 0.3s ease;
-  background: #fff; /* Prevent overlap with input background */
-  padding: 0 5px; /* Add padding for better label clarity */
 }
-
-.wrapper form .field input:focus ~ label,
-.wrapper form .field input:valid ~ label {
-  top: -10px; /* Move label up */
-  font-size: 14px; /* Make label smaller */
-  color: #4158d0; /* Highlight label in same color as border */
+form .field input:focus ~ label,
+form .field input:valid ~ label{
+  top: 0%;
+  font-size: 16px;
+  color: #4158d0;
+  background: #fff;
+  transform: translateY(-50%);
 }
-
 form .content{
   display: flex;
   width: 100%;

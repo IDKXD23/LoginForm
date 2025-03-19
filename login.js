@@ -60,9 +60,13 @@ submitButton.addEventListener("click", function (event) {
       case 'auth/invalid-email':
         alert("Invalid email format. Please provide a valid email address.");
         break;
+      case 'auth/invalid-credential':
+        alert("Credential issue. Please check your login details and try again.");
+        break;
       default:
         alert("Error: " + errorMessage); // Catch and display unexpected errors
     }
   });
+
 
 });

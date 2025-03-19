@@ -1,6 +1,5 @@
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 // Firebase configuration object
@@ -25,7 +24,7 @@ submitButton.addEventListener("click", function (event) {
   event.preventDefault(); // Prevent form submission
 
   // Retrieve input values
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value.trim(); // Remove extra spaces
   const password = document.getElementById('password').value;
 
   // Validate if all fields are filled
@@ -40,12 +39,11 @@ submitButton.addEventListener("click", function (event) {
       // Successfully created a new user
       const user = userCredential.user;
       alert("Account successfully created!");
-      window.location.href = "main.html";
+      window.location.href = "main.html"; // Redirect to main.html
     })
     .catch((error) => {
-      // Handle errors
       const errorCode = error.code;
-     
+      const errorMessage = error.message; // Declare errorMessage
 
       // Provide specific error alerts
       switch (errorCode) {
@@ -59,7 +57,7 @@ submitButton.addEventListener("click", function (event) {
           alert("Invalid email format. Please provide a valid email address.");
           break;
         default:
-          alert("Error: " + errorMessage);
+          alert("Error: " + errorMessage); // Use errorMessage here
       }
     });
 });

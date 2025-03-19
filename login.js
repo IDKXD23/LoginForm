@@ -40,8 +40,8 @@ submitButton.addEventListener("click", function (event) {
       window.location.href = "main.html"; // Redirect to main.html
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+       const errorCode = error.code;
+      const errorMessage = error.message; // Declare errorMessage
 
       // Handle errors
       switch (errorCode) {
@@ -58,4 +58,4 @@ submitButton.addEventListener("click", function (event) {
           alert("Error: " + errorMessage);
       }
     });
-});
+}); 

@@ -38,7 +38,7 @@ submitButton.addEventListener("click", function (event) {
   .then((userCredential) => {
     // Successfully signed in
     const user = userCredential.user;
-    alert("Login successful! Redirecting...");
+    alert("Login successful!");
     window.location.href = "main.html"; // Redirect to the main page
   })
   .catch((error) => {

@@ -33,7 +33,8 @@ submitButton.addEventListener("click", function (event) {
     .then((userCredential) => {
       // Successfully created a new user
       const user = userCredential.user;
-      alert("Account successfully created for: " + user.email);
+      alert("Account successfully created);
+      window.location.href = "main.html";
     })
     .catch((error) => {
       // Handle errors

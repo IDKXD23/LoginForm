@@ -26,10 +26,17 @@ submitButton.addEventListener("click", function (event) {
   // Retrieve input values
   const email = document.getElementById('email').value.trim(); // Remove extra spaces
   const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('cpassword').value; // Confirm Password field
 
   // Validate if all fields are filled
-  if (!email || !password) {
+  if (!email || !password || !confirmPassword) {
     alert("Please fill in all the required fields!");
+    return; // Stop further execution
+  }
+
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    alert("Passwords do not match! Please check and try again.");
     return; // Stop further execution
   }
 

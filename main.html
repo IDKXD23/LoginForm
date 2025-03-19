@@ -3,44 +3,30 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Full-Page GIF with YouTube Sound</title>
+   <title>Fullscreen YouTube Video</title>
    <style>
-      /* Full-page styling for the GIF */
-      body {
+      body, html {
          margin: 0;
          padding: 0;
+         height: 100%;
          overflow: hidden;
       }
-      .background-gif {
-         position: fixed;
+      iframe {
+         position: absolute;
          top: 0;
          left: 0;
          width: 100%;
          height: 100%;
-         background: url('giphy.gif') no-repeat center center;
-         background-size: cover;
-         z-index: -1; /* Push the background behind the content */
-      }
-
-      iframe {
-         position: fixed;
-         bottom: 20px;
-         left: 20px;
-         z-index: 1; /* Bring the video controller forward */
          border: none;
-         width: 300px;
-         height: 200px;
       }
    </style>
 </head>
 <body>
-   <!-- Full-Page GIF -->
-   <div class="background-gif"></div>
-
-   <!-- Embed YouTube video with autoplay and loop -->
-   <iframe
-      src="https://www.youtube.com/embed/C43p8h99Cs0?autoplay=1&loop=1&playlist=C43p8h99Cs0"
-      allow="autoplay"
+   <!-- Fullscreen YouTube Video -->
+   <iframe 
+      src="https://www.youtube.com/embed/C43p8h99Cs0?autoplay=1&loop=1&playlist=C43p8h99Cs0" 
+      allow="autoplay" 
+      allowfullscreen 
       title="YouTube video player">
    </iframe>
 </body>

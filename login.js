@@ -30,30 +30,27 @@ submitButton.addEventListener("click", function (event) {
 
   // Sign in the user with email and password
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Successfully signed in
-      const user = userCredential.user;
-      alert("Logging in");
-      window.location.href = "main.html"; // Redirect to the main page
-    })
-    .catch((error) => {
-      // Handle errors during sign-in
-      const errorCode = error.code;
-      const errorMessage = error.message;
+  .then((userCredential) => {
+    const user = userCredential.user;
+    alert("Logging in");
+    window.location.href = "main.html";
+  })
+  .catch((error) => {
+    const errorCode = error.code;
 
-      // Provide specific error alerts
-      switch (errorCode) {
-        case 'auth/user-not-found':
-          alert("No user found with this email. Please sign up first.");
-          break;
-        case 'auth/wrong-password':
-          alert("Incorrect password. Please try again.");
-          break;
-        case 'auth/invalid-email':
-          alert("Invalid email format. Please provide a valid email address.");
-          break;
-        default:
-          alert("Error: " + errorMessage);
-      }
-    });
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        alert("No user found with this email. Please sign up first.");
+        break;
+      case 'auth/invalid-credential':
+        alert("There is an issue with the provided credentials.");
+        break;
+      case 'auth/wrong-password':
+        alert("Incorrect password. Please try again.");
+        break;
+      default:
+        alert("Error: " + error.message);
+    }
+  });
+
 });

@@ -1,6 +1,6 @@
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 // Firebase configuration object
@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
 const auth = getAuth(app);
 
 // Add event listener to the submit button
@@ -28,12 +28,18 @@ submitButton.addEventListener("click", function (event) {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
+  // Validate if all fields are filled
+  if (!email || !password) {
+    alert("Please fill in all the required fields!");
+    return; // Stop further execution
+  }
+
   // Create a new user with email and password
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Successfully created a new user
       const user = userCredential.user;
-      alert("Account successfully created);
+      alert("Account successfully created!");
       window.location.href = "main.html";
     })
     .catch((error) => {
@@ -42,14 +48,18 @@ submitButton.addEventListener("click", function (event) {
       const errorMessage = error.message;
 
       // Provide specific error alerts
-      if (errorCode === 'auth/weak-password') {
-        alert("Password is too weak. Please use a stronger password.");
-      } else if (errorCode === 'auth/email-already-in-use') {
-        alert("This email is already associated with an account.");
-      } else if (errorCode === 'auth/invalid-email') {
-        alert("Invalid email format. Please provide a valid email address.");
-      } else {
-        alert("Error: " + errorMessage);
+      switch (errorCode) {
+        case 'auth/weak-password':
+          alert("Password is too weak. Please use a stronger password.");
+          break;
+        case 'auth/email-already-in-use':
+          alert("This email is already associated with an account.");
+          break;
+        case 'auth/invalid-email':
+          alert("Invalid email format. Please provide a valid email address.");
+          break;
+        default:
+          alert("Error: " + errorMessage);
       }
     });
 });

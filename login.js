@@ -34,28 +34,33 @@ submitButton.addEventListener("click", function (event) {
 
   // Sign in the user with email and password
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      alert("Logging in successfully!");
-      window.location.href = "main.html"; // Redirect to main.html
-    })
-    .catch((error) => {
-       const errorCode = error.code;
-      const errorMessage = error.message; // Declare errorMessage
+  .then((userCredential) => {
+    // Successfully signed in
+    const user = userCredential.user;
+    alert("Login successful! Redirecting...");
+    window.location.href = "main.html";
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
 
-      // Handle errors
-      switch (errorCode) {
-        case 'auth/user-not-found':
-          alert("No user found with this email. Please sign up first.");
-          break;
-        case 'auth/wrong-password':
-          alert("Incorrect password. Please try again.");
-          break;
-        case 'auth/invalid-email':
-          alert("The email address is not valid. Please provide a valid email.");
-          break;
-        default:
-          alert("Error: " + errorMessage);
-      }
-    });
+    // Handle authentication errors
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        alert("No user found with this email. Please sign up first.");
+        break;
+      case 'auth/wrong-password':
+        alert("Incorrect password. Please try again.");
+        break;
+      case 'auth/invalid-email':
+        alert("Invalid email format. Please provide a valid email.");
+        break;
+      case 'auth/invalid-credential': // Added case
+        alert("Credential issue. Please verify your account details.");
+        break;
+      default:
+        alert("Error: " + errorMessage);
+    }
+  });
+
 }); 

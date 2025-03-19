@@ -27,10 +27,7 @@ submitButton.addEventListener("click", function (event) {
   const email = document.getElementById('email').value.trim(); // Remove extra spaces
   const password = document.getElementById('password').value;
 
-  if (!email || !password) {
-    alert("Please fill in both email and password!");
-    return; // Stop further execution if fields are empty
-  }
+  
 
   // Sign in the user with email and password
   signInWithEmailAndPassword(auth, email, password)

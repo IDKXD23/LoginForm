@@ -1,0 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #153841;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  background-color: #2d3634;
+  color: white;
+  padding: 20px;
+}
+
+section {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px; /* Adjust width as needed */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#profile {
+  display: flex;
+  align-items: center; /* Aligns image and text vertically */
+  margin-bottom: 20px; /* Adds space between sections */
+}
+
+#profile img {
+  width: 200px; /* Adjust the size of the image */
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 30px; /* Space between image and text */
+}
+
+.text {
+  flex: 1; /* Make text take up the remaining space */
+}
+
+#interests, #contact {
+  margin-top: 20px; /* Adds spacing between sections */
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+a {
+  color: #4CAF50;
+  text-decoration: none;
+}

@@ -43,7 +43,7 @@ submitButton.addEventListener("click", function (event) {
     // Successfully signed in
     const user = userCredential.user;
     alert("Login successful!");
-    window.location.href = "main.html"; // Redirect to main.html
+    window.location.href = "profile/main.html"; // Redirect to main.html
   })
   .catch((error) => {
     const errorCode = error.code;

@@ -6,58 +6,6 @@
    <title>Sign Up</title>
    <link rel="stylesheet" href="style.css">
    <script type="module" src="register.js" defer></script>
-
-   <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
-
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyB8zUSflhSfV-o312NmGzMIPIVhOiWMPNQ",
-        authDomain: "dolera-17463.firebaseapp.com",
-        projectId: "dolera-17463",
-        storageBucket: "dolera-17463.appspot.com", // Corrected storageBucket URL format
-        messagingSenderId: "535352398372",
-        appId: "1:535352398372:web:fd87c0ea46b73099607eb1",
-        measurementId: "G-BRLNYJQXRY"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-
-    // Get reference to the database service
-    const db = getDatabase(app);
-
-    // Event listener for form submission
-    document.getElementById("submit").addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent form default submission
-
-        const username = document.getElementById("username").value.trim();
-        const email = document.getElementById("email").value.trim();
-     
-
-        // Validate input fields
-        if (!username || !email ) {
-            alert("Please fill in all the fields!");
-            return;
-        }
-
-        // Save data to Realtime Database
-        set(ref(db, 'user/' + username), {
-            username: username,
-            email: email,
-       
-        })
-        .then(() => {
-            alert("Account successfully created!");
-        })
-        .catch((error) => {
-            console.error("Error saving user to database:", error);
-            alert("Failed to save user data to the database. Please try again.");
-        });
-    });
-</script>
 </head>
 <body>
    <div class="wrapper">

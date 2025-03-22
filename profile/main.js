@@ -53,21 +53,22 @@ function updateUI(data) {
     headerElement.textContent = data.username || "Unknown Username";
   }
 
-  const profileParagraph = document.querySelector("#profile p");
-  if (profileParagraph) {
-    profileParagraph.innerHTML = `Hello! <b>${data.username || "User"}</b>, Welcome to your User Page!`;
-  }
+ const profileParagraph = document.querySelector("#profile p");
+if (profileParagraph) {
+  profileParagraph.innerHTML = `Hello! <b>${data.username || "User"}</b>, Welcome to your User Page!`;
+}
 
-  const contactLink = document.querySelector("#contact a");
-  if (contactLink) {
-    contactLink.textContent = data.email || "Unknown Email";
-    contactLink.setAttribute("href", `mailto:${data.email || ""}`);
-  }
+const contactLink = document.querySelector("#contact a");
+if (contactLink) {
+  contactLink.textContent = data.email || "Unknown Email";
+  contactLink.setAttribute("href", `mailto:${data.email || ""}`);
+}
 
-  const contactPhone = document.querySelector("#contact p:last-child");
-  if (contactPhone) {
-    contactPhone.textContent = data.phoneNumber || "Unknown Phone Number";
-  }
+const contactPhone = document.querySelector("#contact p:last-child");
+if (contactPhone) {
+  contactPhone.textContent = data.phoneNumber || "Unknown Phone Number";
+}
+
 }
 
 // Monitor authentication state

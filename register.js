@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: "dolera-17463.appspot.com",
   messagingSenderId: "535352398372",
   appId: "1:535352398372:web:fd87c0ea46b73099607eb1",
-  measurementId: "G-BRLNYJQXRY"
+  measurementId: "G-BRLNYJQXRY",
 };
 
 // Initialize Firebase
@@ -21,66 +21,55 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Initialize Firestore Database
-const db = getFirestore(app); // This was missing in your original code!
+const db = getFirestore(app);
 
 // Add event listener to the submit button
-const submitButton = document.getElementById('submit');
-submitButton.addEventListener("click", function (event) {
+const submitButton = document.getElementById("submit");
+submitButton.addEventListener("click", async (event) => {
   event.preventDefault(); // Prevent form submission
 
   // Retrieve input values
-  const email = document.getElementById('email').value.trim(); // Remove extra spaces
-  const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('cpassword').value; // Confirm Password field
+  const email = document.getElementById("email").value.trim(); // Remove extra spaces
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("cpassword").value;
 
-  // Validate if all fields are filled
+  // Validate inputs
   if (!email || !password || !confirmPassword) {
     alert("Please fill in all the required fields!");
-    return; // Stop further execution
+    return;
   }
 
-  // Check if passwords match
   if (password !== confirmPassword) {
     alert("Passwords do not match! Please check and try again.");
-    return; // Stop further execution
+    return;
   }
 
-  // Create a new user with email and password
-  createUserWithEmailAndPassword(auth, email, password)
-    .then(async (userCredential) => {
-      // Successfully created a new user
-      const user = userCredential.user;
-      
-      // Save the user's email and ID in Firestore
-      try {
-        await setDoc(doc(db, "users", user.uid), {
-          email: email, // Save email
-          uid: user.uid // Save user ID
-        });
-        alert("Account successfully created and added to the database!");
-        window.location.href = "index.html"; // Redirect to main.html
-      } catch (error) {
-        console.error("Error saving user to database:", error);
-        alert("Failed to save user data to the database.");
-      }
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+  try {
+    // Create a new user with email and password
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-      // Provide specific error alerts
-      switch (errorCode) {
-        case 'auth/weak-password':
-          alert("Password is too weak. Please use a stronger password.");
-          break;
-        case 'auth/email-already-in-use':
-          alert("This email is already created.");
-          break;
-        case 'auth/invalid-email':
-          alert("Invalid email format. Please provide a valid email address.");
-          break;
-        default:
-          alert("Error: " + errorMessage);
-      }
+    // Save the user's details to Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      email: email, // User's email
+      uid: user.uid, // User's unique ID
+      timestamp: new Date().toISOString(), // Add creation timestamp for records
     });
+
+    alert("Account successfully created and added to the database!");
+    window.location.href = "index.html"; // Redirect to another page
+  } catch (error) {
+    console.error("Error during user registration:", error);
+
+    // Specific error messages
+    if (error.code === "auth/weak-password") {
+      alert("Password is too weak. Please use a stronger password.");
+    } else if (error.code === "auth/email-already-in-use") {
+      alert("This email is already registered.");
+    } else if (error.code === "auth/invalid-email") {
+      alert("Invalid email format. Please provide a valid email address.");
+    } else {
+      alert("An error occurred: " + error.message);
+    }
+  }
 });

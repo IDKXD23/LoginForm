@@ -19,27 +19,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication
-const auth = getAuth(app); // Ensure this line is present
+const auth = getAuth(app);
+
 // Initialize Realtime Database
 const db = getDatabase(app);
 
-// Example function to fetch user details
+// Function to fetch user details from Realtime Database
 async function fetchUserData(userId) {
   try {
+    // Reference the user's data in Realtime Database
     const userRef = ref(db, `user/${userId}`);
     const snapshot = await get(userRef);
 
     if (snapshot.exists()) {
       const data = snapshot.val();
-      console.log("User data:", data); // Debugging purpose
+      console.log("User data retrieved:", data); // Debugging log
 
-      // Update HTML with fetched data
+      // Update HTML content dynamically
       document.querySelector("header h1").textContent = data.username || "Unknown Username";
       document.querySelector("#profile p").innerHTML = `Hello! <b>${data.username || "Unknown Username"}</b>, Welcome to your User Page!`;
       document.querySelector("#contact a").textContent = data.email || "Unknown Email";
       document.querySelector("#contact a").href = `mailto:${data.email || ""}`;
+      document.querySelector("#contact p:last-child").textContent = data.phoneNumber || "Unknown Phone Number";
     } else {
-      console.log("No data found for this user.");
+      console.log("No data found for this user in the database.");
     }
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -49,8 +52,9 @@ async function fetchUserData(userId) {
 // Monitor authentication state
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    fetchUserData(user.uid);
+    const userId = user.uid; // Logged-in user's UID
+    fetchUserData(userId); // Fetch user details from database
   } else {
-    console.log("No user is logged in.");
+    console.log("No user is signed in.");
   }
 });

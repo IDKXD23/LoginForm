@@ -46,7 +46,7 @@ submitButton.addEventListener("click", function (event) {
       // Successfully created a new user
       const user = userCredential.user;
       alert("Account successfully created!");
-      window.location.href = "main.html"; // Redirect to main.html
+      window.location.href = "index.html"; // Redirect to main.html
     })
     .catch((error) => {
       const errorCode = error.code;

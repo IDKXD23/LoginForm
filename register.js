@@ -2,12 +2,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
 // Firebase configuration object
 const firebaseConfig = {
   apiKey: "AIzaSyB8zUSflhSfV-o312NmGzMIPIVhOiWMPNQ",
   authDomain: "dolera-17463.firebaseapp.com",
   projectId: "dolera-17463",
-  storageBucket: "dolera-17463.appspot.com", // Corrected storageBucket URL format
+  storageBucket: "dolera-17463.appspot.com",
   messagingSenderId: "535352398372",
   appId: "1:535352398372:web:fd87c0ea46b73099607eb1",
   measurementId: "G-BRLNYJQXRY"
@@ -16,7 +17,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Firebase Authentication
 const auth = getAuth(app);
+
+// Initialize Firestore Database
+const db = getFirestore(app); // This was missing in your original code!
 
 // Add event listener to the submit button
 const submitButton = document.getElementById('submit');
@@ -41,7 +46,7 @@ submitButton.addEventListener("click", function (event) {
   }
 
   // Create a new user with email and password
- createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       // Successfully created a new user
       const user = userCredential.user;
@@ -61,7 +66,7 @@ submitButton.addEventListener("click", function (event) {
     })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message; // Declare errorMessage
+      const errorMessage = error.message;
 
       // Provide specific error alerts
       switch (errorCode) {
@@ -75,7 +80,7 @@ submitButton.addEventListener("click", function (event) {
           alert("Invalid email format. Please provide a valid email address.");
           break;
         default:
-          alert("Error: " + errorMessage); // Use errorMessage here
+          alert("Error: " + errorMessage);
       }
     });
 });

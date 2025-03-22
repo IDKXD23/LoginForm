@@ -1,13 +1,15 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+// Import the functions you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-// Firebase configuration object
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB8zUSflhSfV-o312NmGzMIPIVhOiWMPNQ",
   authDomain: "dolera-17463.firebaseapp.com",
   projectId: "dolera-17463",
-  storageBucket: "dolera-17463.appspot.com",
+  storageBucket: "dolera-17463.firebasestorage.app",
   messagingSenderId: "535352398372",
   appId: "1:535352398372:web:fd87c0ea46b73099607eb1",
   measurementId: "G-BRLNYJQXRY"
@@ -15,8 +17,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth(app); // Firebase Authentication
-const db = getFirestore(app);
+const db = getFirestore(app); // Firestore Database
 
 // Function to fetch user details from Firestore
 async function fetchUserDetails(userId) {
@@ -30,7 +33,7 @@ async function fetchUserDetails(userId) {
 
     // Update username in the HTML
     document.querySelector('header h1').textContent = username;
-    document.querySelector('#profile p').innerHTML = `Hello! I'm <b>${username}</b>, a humble student with a passion for gaming and the thrill of racing.`;
+    document.querySelector('#profile p').innerHTML = `Hello! I'm <b>${username}</b>, Welcome to User Page!`;
 
     // Update email in the contact section
     document.querySelector('#contact a').textContent = email;

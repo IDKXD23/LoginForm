@@ -35,10 +35,10 @@
 
         const username = document.getElementById("username").value.trim();
         const email = document.getElementById("email").value.trim();
-        const phone = document.getElementById("phone").value.trim();
+     
 
         // Validate input fields
-        if (!username || !email || !phone) {
+        if (!username || !email ) {
             alert("Please fill in all the fields!");
             return;
         }
@@ -47,7 +47,7 @@
         set(ref(db, 'user/' + username), {
             username: username,
             email: email,
-            phoneNumber: phone
+       
         })
         .then(() => {
             alert("Account successfully created!");

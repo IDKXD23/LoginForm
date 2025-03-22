@@ -1,7 +1,7 @@
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 // Firebase configuration object
 const firebaseConfig = {
   apiKey: "AIzaSyB8zUSflhSfV-o312NmGzMIPIVhOiWMPNQ",
@@ -41,12 +41,23 @@ submitButton.addEventListener("click", function (event) {
   }
 
   // Create a new user with email and password
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+ createUserWithEmailAndPassword(auth, email, password)
+    .then(async (userCredential) => {
       // Successfully created a new user
       const user = userCredential.user;
-      alert("Account successfully created!");
-      window.location.href = "index.html"; // Redirect to main.html
+      
+      // Save the user's email and ID in Firestore
+      try {
+        await setDoc(doc(db, "users", user.uid), {
+          email: email, // Save email
+          uid: user.uid // Save user ID
+        });
+        alert("Account successfully created and added to the database!");
+        window.location.href = "index.html"; // Redirect to main.html
+      } catch (error) {
+        console.error("Error saving user to database:", error);
+        alert("Failed to save user data to the database.");
+      }
     })
     .catch((error) => {
       const errorCode = error.code;

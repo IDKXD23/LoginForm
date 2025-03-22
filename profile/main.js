@@ -34,28 +34,48 @@ async function fetchUserData(userId) {
 
     if (snapshot.exists()) {
       const data = snapshot.val();
-      console.log("User data retrieved:", data);
+      console.log("✅ User data retrieved:", data);
 
       // Update the UI only if elements exist
-      document.querySelector("header h1")?.textContent = data.username || "Unknown Username";
-      document.querySelector("#profile p")?.innerHTML = `Hello! <b>${data.username || "User"}</b>, Welcome to your User Page!`;
-      document.querySelector("#contact a")?.textContent = data.email || "Unknown Email";
-      document.querySelector("#contact a")?.setAttribute("href", `mailto:${data.email || ""}`);
-      document.querySelector("#contact p:last-child")?.textContent = data.phoneNumber || "Unknown Phone Number";
+      updateUI(data);
     } else {
-      console.warn("No data found for this user.");
+      console.warn("⚠️ No data found for this user.");
     }
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    console.error("❌ Error fetching user data:", error);
+  }
+}
+
+// Function to update UI elements
+function updateUI(data) {
+  const headerElement = document.querySelector("header h1");
+  if (headerElement) {
+    headerElement.textContent = data.username || "Unknown Username";
+  }
+
+  const profileParagraph = document.querySelector("#profile p");
+  if (profileParagraph) {
+    profileParagraph.innerHTML = `Hello! <b>${data.username || "User"}</b>, Welcome to your User Page!`;
+  }
+
+  const contactLink = document.querySelector("#contact a");
+  if (contactLink) {
+    contactLink.textContent = data.email || "Unknown Email";
+    contactLink.setAttribute("href", `mailto:${data.email || ""}`);
+  }
+
+  const contactPhone = document.querySelector("#contact p:last-child");
+  if (contactPhone) {
+    contactPhone.textContent = data.phoneNumber || "Unknown Phone Number";
   }
 }
 
 // Monitor authentication state
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("User signed in:", user.uid);
+    console.log("🔑 User signed in:", user.uid);
     fetchUserData(user.uid);
   } else {
-    console.warn("No user is signed in.");
+    console.warn("⚠️ No user is signed in.");
   }
 });

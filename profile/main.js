@@ -85,15 +85,19 @@ onAuthStateChanged(auth, (user) => {
 // Jumpscare logic
 // Ensure script runs after the page loads
 window.onload = function () {
-    let idleTimer;
+    let idleTimer; // Timer variable
+    let isLoggedIn = false; // Track login state
 
-    function resetTimer() {
+    function startIdleTimer() {
+        if (!isLoggedIn) return; // Only start if user is logged in
         clearTimeout(idleTimer);
-        console.log("⏳ Timer Reset"); // Debugging log
+        console.log("⏳ Timer Reset (User Active)"); // Debugging log
         idleTimer = setTimeout(triggerJumpscare, getRandomTime(10000, 15000));
     }
 
     function triggerJumpscare() {
+        if (!isLoggedIn) return; // Ensure jumpscare only happens when logged in
+
         const jumpscareDiv = document.getElementById("jumpscare");
         const scaryAudio = document.getElementById("scary-audio");
 
@@ -110,23 +114,24 @@ window.onload = function () {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // Listen for user activity to reset the timer
     function setupActivityListeners() {
-        document.addEventListener("mousemove", resetTimer);
-        document.addEventListener("keydown", resetTimer);
-        document.addEventListener("scroll", resetTimer);
+        document.addEventListener("mousemove", startIdleTimer);
+        document.addEventListener("keydown", startIdleTimer);
+        document.addEventListener("scroll", startIdleTimer);
     }
 
-    // Ensure jumpscare only works after login
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log("🔑 User signed in:", user.uid);
+            isLoggedIn = true; // Mark user as logged in
             fetchUserData(user.uid);
-            setupActivityListeners(); // Start tracking user activity
-            resetTimer(); // Start idle timer AFTER login
+            setupActivityListeners();
+            startIdleTimer(); // Start idle timer only after login
         } else {
             console.warn("⚠️ No user is signed in.");
+            isLoggedIn = false; // Reset login state
         }
     });
 };
+
 

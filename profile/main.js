@@ -83,14 +83,22 @@ onAuthStateChanged(auth, (user) => {
 
 
 // Jumpscare logic
-let idleTime;
+let idleTimer;
 
 function resetTimer() {
-    clearTimeout(idleTime);
-    idleTime = setTimeout(() => {
-        document.getElementById("jumpscare").style.display = "flex";
-        document.getElementById("scary-audio").play();
-    }, Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000); // Random time between 10-15s
+    clearTimeout(idleTimer); // Clear previous timer
+    idleTimer = setTimeout(triggerJumpscare, getRandomTime(10000, 15000)); // Set new timer
+}
+
+// Function to trigger jumpscare
+function triggerJumpscare() {
+    document.getElementById("jumpscare").style.display = "flex";
+    document.getElementById("scary-audio").play();
+}
+
+// Function to generate random time between 10-15 seconds
+function getRandomTime(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // Listen for user activity to reset the timer
@@ -98,5 +106,5 @@ document.addEventListener("mousemove", resetTimer);
 document.addEventListener("keydown", resetTimer);
 document.addEventListener("scroll", resetTimer);
 
-resetTimer(); // Start the idle timer when the page loads
-
+// Start the idle timer when the page loads
+resetTimer();

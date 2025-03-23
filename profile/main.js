@@ -83,28 +83,43 @@ onAuthStateChanged(auth, (user) => {
 
 
 // Jumpscare logic
-let idleTimer;
+window.onload = function () {
+    let idleTimer;
 
-function resetTimer() {
-    clearTimeout(idleTimer); // Clear previous timer
-    idleTimer = setTimeout(triggerJumpscare, getRandomTime(10000, 15000)); // Set new timer
-}
+    function resetTimer() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(triggerJumpscare, getRandomTime(10000, 15000));
+    }
 
-// Function to trigger jumpscare
-function triggerJumpscare() {
-    document.getElementById("jumpscare").style.display = "flex";
-    document.getElementById("scary-audio").play();
-}
+    function triggerJumpscare() {
+        const jumpscareDiv = document.getElementById("jumpscare");
+        const scaryAudio = document.getElementById("scary-audio");
 
-// Function to generate random time between 10-15 seconds
-function getRandomTime(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+        if (jumpscareDiv && scaryAudio) {
+            jumpscareDiv.style.display = "flex";
+            scaryAudio.play();
+        } else {
+            console.error("Jumpscare elements not found!");
+        }
+    }
 
-// Listen for user activity to reset the timer
-document.addEventListener("mousemove", resetTimer);
-document.addEventListener("keydown", resetTimer);
-document.addEventListener("scroll", resetTimer);
+    function getRandomTime(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-// Start the idle timer when the page loads
-resetTimer();
+    // Listen for user activity
+    document.addEventListener("mousemove", resetTimer);
+    document.addEventListener("keydown", resetTimer);
+    document.addEventListener("scroll", resetTimer);
+
+    // Start the timer after login
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log("🔑 User signed in:", user.uid);
+            fetchUserData(user.uid);
+            resetTimer(); // Start idle timer AFTER login
+        } else {
+            console.warn("⚠️ No user is signed in.");
+        }
+    });
+};

@@ -80,3 +80,23 @@ onAuthStateChanged(auth, (user) => {
     console.warn("⚠️ No user is signed in.");
   }
 });
+
+
+// Jumpscare logic
+let idleTime;
+
+function resetTimer() {
+    clearTimeout(idleTime);
+    idleTime = setTimeout(() => {
+        document.getElementById("jumpscare").style.display = "flex";
+        document.getElementById("scary-audio").play();
+    }, Math.floor(Math.random() * (15000 - 10000 + 1)) + 10000); // Random time between 10-15s
+}
+
+// Listen for user activity to reset the timer
+document.addEventListener("mousemove", resetTimer);
+document.addEventListener("keydown", resetTimer);
+document.addEventListener("scroll", resetTimer);
+
+resetTimer(); // Start the idle timer when the page loads
+

@@ -82,56 +82,5 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-// Jumpscare logic
-// Ensure script runs after the page loads
-window.onload = function () {
-    let idleTimer; // Timer variable
-    let isLoggedIn = false; // Track login state
-
-    function startIdleTimer() {
-        if (!isLoggedIn) return; // Only start if user is logged in
-        clearTimeout(idleTimer);
-        console.log("⏳ Timer Reset (User Active)"); // Debugging log
-        idleTimer = setTimeout(triggerJumpscare, getRandomTime(10000, 15000));
-    }
-
-    function triggerJumpscare() {
-        if (!isLoggedIn) return; // Ensure jumpscare only happens when logged in
-
-        const jumpscareDiv = document.getElementById("jumpscare");
-        const scaryAudio = document.getElementById("scary-audio");
-
-        if (jumpscareDiv && scaryAudio) {
-            console.log("💀 Jumpscare triggered!");
-            jumpscareDiv.style.display = "flex";
-            scaryAudio.play();
-        } else {
-            console.error("⚠️ Jumpscare elements not found!");
-        }
-    }
-
-    function getRandomTime(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function setupActivityListeners() {
-        document.addEventListener("mousemove", startIdleTimer);
-        document.addEventListener("keydown", startIdleTimer);
-        document.addEventListener("scroll", startIdleTimer);
-    }
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log("🔑 User signed in:", user.uid);
-            isLoggedIn = true; // Mark user as logged in
-            fetchUserData(user.uid);
-            setupActivityListeners();
-            startIdleTimer(); // Start idle timer only after login
-        } else {
-            console.warn("⚠️ No user is signed in.");
-            isLoggedIn = false; // Reset login state
-        }
-    });
-};
 
 

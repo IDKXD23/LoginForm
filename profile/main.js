@@ -83,11 +83,13 @@ onAuthStateChanged(auth, (user) => {
 
 
 // Jumpscare logic
+// Ensure script runs after the page loads
 window.onload = function () {
     let idleTimer;
 
     function resetTimer() {
         clearTimeout(idleTimer);
+        console.log("⏳ Timer Reset"); // Debugging log
         idleTimer = setTimeout(triggerJumpscare, getRandomTime(10000, 15000));
     }
 
@@ -96,10 +98,11 @@ window.onload = function () {
         const scaryAudio = document.getElementById("scary-audio");
 
         if (jumpscareDiv && scaryAudio) {
+            console.log("💀 Jumpscare triggered!");
             jumpscareDiv.style.display = "flex";
             scaryAudio.play();
         } else {
-            console.error("Jumpscare elements not found!");
+            console.error("⚠️ Jumpscare elements not found!");
         }
     }
 
@@ -107,19 +110,23 @@ window.onload = function () {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // Listen for user activity
-    document.addEventListener("mousemove", resetTimer);
-    document.addEventListener("keydown", resetTimer);
-    document.addEventListener("scroll", resetTimer);
+    // Listen for user activity to reset the timer
+    function setupActivityListeners() {
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keydown", resetTimer);
+        document.addEventListener("scroll", resetTimer);
+    }
 
-    // Start the timer after login
+    // Ensure jumpscare only works after login
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log("🔑 User signed in:", user.uid);
             fetchUserData(user.uid);
+            setupActivityListeners(); // Start tracking user activity
             resetTimer(); // Start idle timer AFTER login
         } else {
             console.warn("⚠️ No user is signed in.");
         }
     });
 };
+
